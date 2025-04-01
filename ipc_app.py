@@ -6,7 +6,7 @@ import numpy as np
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_community.chat_models import ChatGroq
+from langchain_groq import ChatGroq
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from sentence_transformers import SentenceTransformer
 
