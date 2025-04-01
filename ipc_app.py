@@ -35,7 +35,7 @@ def create_faiss_index(text):
     index.add(np.array(embeddings))
     return index, texts
   
-  def retrieve_ipc_section(query,index,chunks):
+def retrieve_ipc_section(query,index,chunks):
     query_embedding = hf_model.encode([query])
     distances, indices =index.search(np.array(query_embedding), k=1)  
     return chunks[indices[0][0]] if indices[0][0] < len(chunks) else "No relevant section found."
@@ -68,14 +68,12 @@ st.image("img2.png")
 st.title("IPC Legal Chatbot")
 
 uploaded_file = st.file_uploader("Upload IPC PDF", type=["pdf"])
-
 if uploaded_file:
     ipc_text = extract_text_from_pdf(uploaded_file)
     ipc_faiss_index, ipc_chunks = create_faiss_index(ipc_text)
     st.success("PDF processed successfully!")
 
 query = st.text_area("Enter your legal question:")
-
 if st.button("Get Answer"):
     if uploaded_file and query:
         response = ipc_chatbot(query, ipc_faiss_index, ipc_chunks)
